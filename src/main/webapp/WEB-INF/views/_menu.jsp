@@ -9,7 +9,7 @@
    |
    <a href="${pageContext.request.contextPath}/schema">Schema</a>
    |
-   <a href="${pageContext.request.contextPath}/credentialDefinition">Credential Definition</a>
+   <a href="${pageContext.request.contextPath}/creddef">Credential Definition</a>
    |
    <a href="${pageContext.request.contextPath}/issueCredential">Issue Credential</a>
 </div>  
