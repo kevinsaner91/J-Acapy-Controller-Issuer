@@ -40,12 +40,17 @@
 
       <p style="color: red;">${errorString}</p>
       
-      <form method="POST" action="${pageContext.request.contextPath}/schema">
+      <form method="POST" action="${pageContext.request.contextPath}/creddef">
      <table border="1" cellpadding="5" cellspacing="1" >
        <tr>
           <th>
           	<div class="tooltip"> Schema ID
-  				<span class="tooltiptext">Copy a the schema ID of an already created into the text field</span>
+  				<span class="tooltiptext">Copy a the schema ID of an already created schema into the text field</span>
+			</div>
+		 </th>
+		 <th>
+          	<div class="tooltip"> Tag
+  				<span class="tooltiptext">Use the tag "default"</span>
 			</div>
 		 </th>
        </tr>
@@ -53,6 +58,9 @@
           <tr>
              <td>
              	<input type="text" value="${schemaId}" name="schemaId"  style="width: 500px;">
+             </td>
+             <td>
+             	<input type="text" value="${tag}" name="tag"  style="width: 500px;">
              </td>
              <td>
              	<input type="submit" value= "Submit"/>

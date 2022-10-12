@@ -16,7 +16,9 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.utils.URIBuilder;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.json.simple.JSONArray;
@@ -90,14 +92,49 @@ public class CreddefServlet extends HttpServlet{
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		RequestDispatcher dispatcher //
-		= this.getServletContext().getRequestDispatcher("/WEB-INF/views/creddefView.jsp");
+		System.out.println("Something happened");
+		String schemaId = request.getParameter("schemaId");
+		String tag = request.getParameter("tag");
+		
+		if(schemaId.isEmpty()|| tag.isEmpty()) {
+			String errorString = "Error: Field cannot be empty"; 
+			request.setAttribute("errorString", errorString);
+			RequestDispatcher dispatcher //
+					= this.getServletContext().getRequestDispatcher("/WEB-INF/views/creddefView.jsp");
 
-		dispatcher.forward(request, response);
+			dispatcher.forward(request, response);
+		} else {
+			System.out.println("Here I am!");
+			request.setAttribute("errorString", "");
+			
+			JSONObject creddef = new JSONObject();
+
+			creddef.put("schema_id", schemaId);
+			creddef.put("tag", tag);
+
+			System.out.println(creddef.toString());
+			
+			CloseableHttpClient httpclient = HttpClients.createDefault();
+
+			HttpPost httpPost = new HttpPost("https://faber-api.educa.ch/credential-definitions");
+
+			httpPost.setHeader("Accept", "application/json");
+			httpPost.setHeader("Content-type", "application/json");
+
+			StringEntity stringEntity = new StringEntity(creddef.toString());
+
+			httpPost.setEntity(stringEntity);
+
+			System.out.println("Executing request " + httpPost.getRequestLine());
+
+			HttpResponse response1 = httpclient.execute(httpPost);
+
+			doGet(request, response);
+		}
 
 	}
 	
-private Creddef getCreddefDetails(String creddefId) throws ClientProtocolException, IOException, URISyntaxException {
+	private Creddef getCreddefDetails(String creddefId) throws ClientProtocolException, IOException, URISyntaxException {
 		
 		CloseableHttpClient httpclient = HttpClients.createDefault();
 
@@ -128,7 +165,7 @@ private Creddef getCreddefDetails(String creddefId) throws ClientProtocolExcepti
 
 				System.out.println(object.toString());
 				
-				Creddef creddef = new Creddef(object.get("id").toString(), object.get("ver").toString(), object.get("tag").toString());
+				Creddef creddef = new Creddef(object.get("id").toString(), object.get("tag").toString(), object.get("ver").toString());
 				return creddef;
 			} catch (ParseException e) {
 				// TODO: handle exception
