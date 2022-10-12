@@ -22,8 +22,6 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 
-import simplewebapp.utils.DBUtils;
-import simplewebapp.utils.MyUtils;
 
 @WebServlet(urlPatterns = { "/delete" })
 public class DeleteConnectionServlet extends HttpServlet{

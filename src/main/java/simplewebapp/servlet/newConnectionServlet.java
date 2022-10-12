@@ -25,8 +25,6 @@ import com.owlike.genson.Genson;
 
 import simplewebapp.beans.Connection;
 import simplewebapp.beans.UserAccount;
-import simplewebapp.utils.DBUtils;
-import simplewebapp.utils.MyUtils;
 
 @WebServlet(urlPatterns = { "/newConnection" })
 public class newConnectionServlet extends HttpServlet {

@@ -16,7 +16,6 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 
 import simplewebapp.conn.ConnectionUtils;
-import simplewebapp.utils.MyUtils;
 
 @WebFilter(filterName = "encodingFilter", urlPatterns = { "/login", "/productList"  })
 public class EncodingFilter implements Filter {
