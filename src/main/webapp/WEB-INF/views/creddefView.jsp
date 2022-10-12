@@ -23,12 +23,14 @@
     <table border="1" cellpadding="5" cellspacing="1" >
        <tr>
           <th>Credential Definition ID</th>
-          <th>Schema Version</th>
+          <th>Version</th>
+          <th>Tag</th>
        </tr>
-       <c:forEach items="${schemaList}" var="result" >
+       <c:forEach items="${creddefList}" var="result" >
           <tr>
-             <td>${result.creddefId}</td>
-             <td>${result.creddefVersion}</td>
+             <td>${result.id}</td>
+             <td>${result.version}</td>
+             <td>${result.tag}</td>
           </tr>
        </c:forEach>
     </table>

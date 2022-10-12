@@ -20,7 +20,7 @@
 
     
 
-    <table border="0" cellpadding="5" cellspacing="1" >
+    <table border="1" cellpadding="5" cellspacing="1" >
        <tr>
           <th>Schema ID</th>
           <th>Schema Name</th>
@@ -30,7 +30,7 @@
        <c:forEach items="${schemaList}" var="result" >
           <tr>
              <td>
-             	<input type="text" value="${result.schemaId}" id="myInput" readonly style="width: 300px;">
+             	<input type="text" value="${result.schemaId}" id="myInput" readonly style="width: 500px;">
              </td>
              <td>
              	<input type="text" value="${result.schemaName}">
