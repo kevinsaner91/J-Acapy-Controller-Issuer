@@ -25,6 +25,7 @@ import com.owlike.genson.Genson;
 
 import simplewebapp.beans.Connection;
 import simplewebapp.beans.UserAccount;
+import simplewebapp.properties.PropertiesUtil;
 
 @WebServlet(urlPatterns = { "/newConnection" })
 public class newConnectionServlet extends HttpServlet {
@@ -61,12 +62,13 @@ public class newConnectionServlet extends HttpServlet {
 		String connectionString = null;
         try {
             HttpUriRequest httppost = RequestBuilder.post()
-                    .setUri(new URI("https://alice-api.educa.ch/connections/create-invitation"))
+                    .setUri(new URI(new PropertiesUtil().getScheme()+ "://" + new PropertiesUtil().getFaberAgentURL()+ "/connections/create-invitation"))
 					/*
 					 * .addParameter("foo1", "bar1") .addParameter("foo2", "bar2")
 					 */
                     .build();
  
+            System.out.println(httppost.toString());
             CloseableHttpResponse response1 = httpclient.execute(httppost);
             try {
             	

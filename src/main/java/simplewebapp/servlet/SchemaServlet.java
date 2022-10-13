@@ -28,6 +28,7 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 import simplewebapp.beans.Schema;
+import simplewebapp.properties.PropertiesUtil;
 
 @WebServlet(urlPatterns = { "/schema" })
 public class SchemaServlet extends HttpServlet {
@@ -42,7 +43,7 @@ public class SchemaServlet extends HttpServlet {
 			throws ServletException, IOException {
 
 		CloseableHttpClient httpclient = HttpClients.createDefault();
-		HttpGet httpget = new HttpGet("https://faber-api.educa.ch/schemas/created");
+		HttpGet httpget = new HttpGet(new PropertiesUtil().getScheme() +"://" + new PropertiesUtil().getFaberAgentURL()+ "/schemas/created");
 		HttpResponse httpresponse = httpclient.execute(httpget);
 		Scanner sc = new Scanner(httpresponse.getEntity().getContent());
 
@@ -120,7 +121,7 @@ public class SchemaServlet extends HttpServlet {
 			
 			CloseableHttpClient httpclient = HttpClients.createDefault();
 
-			HttpPost httpPost = new HttpPost("https://faber-api.educa.ch/schemas");
+			HttpPost httpPost = new HttpPost(new PropertiesUtil().getScheme() + "://" +new PropertiesUtil().getScheme() + new PropertiesUtil().getFaberAgentURL()+ "/schemas");
 
 			httpPost.setHeader("Accept", "application/json");
 			httpPost.setHeader("Content-type", "application/json");
@@ -141,7 +142,7 @@ public class SchemaServlet extends HttpServlet {
 		
 		CloseableHttpClient httpclient = HttpClients.createDefault();
 
-		URIBuilder builder = new URIBuilder().setScheme("https").setHost("faber-api.educa.ch").setPath("/schemas/" + schemaId);
+		URIBuilder builder = new URIBuilder().setScheme(new PropertiesUtil().getScheme()).setHost(new PropertiesUtil().getFaberAgentURL()).setPath("/schemas/" + schemaId);
 
 
 		System.out.println(builder.toString());

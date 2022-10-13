@@ -22,6 +22,8 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 
+import simplewebapp.properties.PropertiesUtil;
+
 
 @WebServlet(urlPatterns = { "/delete" })
 public class DeleteConnectionServlet extends HttpServlet{
@@ -37,7 +39,7 @@ public class DeleteConnectionServlet extends HttpServlet{
 		String connection_id = (String) request.getParameter("connection_id");
 
 		System.out.println(connection_id);
-		String URL = "https://alice-api.educa.ch/connections/" + connection_id + "/remove";
+		String URL = new PropertiesUtil().getScheme() + "://" + new PropertiesUtil().getFaberAgentURL()+ "/connections/" + connection_id + "/remove";
 		
 		CloseableHttpClient httpclient = HttpClients.createDefault();
 

@@ -32,6 +32,7 @@ import simplewebapp.beans.ActiveConnection;
 import simplewebapp.beans.Creddef;
 import simplewebapp.beans.Result;
 import simplewebapp.beans.Schema;
+import simplewebapp.properties.PropertiesUtil;
 
 @WebServlet(urlPatterns = { "/issueCredential" })
 public class IssueCredential extends HttpServlet{
@@ -123,7 +124,7 @@ public class IssueCredential extends HttpServlet{
 		
 		CloseableHttpClient httpclient = HttpClients.createDefault();
 
-		HttpPost httpPost = new HttpPost("https://faber-api.educa.ch/issue-credential/send-offer");
+		HttpPost httpPost = new HttpPost(new PropertiesUtil().getScheme() + "://" +new PropertiesUtil().getFaberAgentURL()+ "/issue-credential/send-offer");
 
 		httpPost.setHeader("Accept", "application/json");
 		httpPost.setHeader("Content-type", "application/json");
@@ -141,7 +142,7 @@ public class IssueCredential extends HttpServlet{
 	
 	private List<Creddef> getCreddefs() throws ClientProtocolException, IOException {
 		CloseableHttpClient httpclient = HttpClients.createDefault();
-		HttpGet httpget = new HttpGet("https://faber-api.educa.ch/credential-definitions/created");
+		HttpGet httpget = new HttpGet(new PropertiesUtil().getScheme() +"://" + new PropertiesUtil().getFaberAgentURL()+ "/credential-definitions/created");
 		HttpResponse httpresponse = httpclient.execute(httpget);
 		Scanner sc = new Scanner(httpresponse.getEntity().getContent());
 
@@ -184,7 +185,7 @@ public class IssueCredential extends HttpServlet{
 		
 		CloseableHttpClient httpclient = HttpClients.createDefault();
 
-		URIBuilder builder = new URIBuilder().setScheme("https").setHost("faber-api.educa.ch").setPath("/credential-definitions/" + creddefId);
+		URIBuilder builder = new URIBuilder().setScheme(new PropertiesUtil().getScheme()).setHost(new PropertiesUtil().getFaberAgentURL() ).setPath("/credential-definitions/" + creddefId);
 
 
 		System.out.println(builder.toString());
@@ -224,7 +225,7 @@ public class IssueCredential extends HttpServlet{
 
 	private List<Result> getConnections() throws ClientProtocolException, IOException{
 		CloseableHttpClient httpclient = HttpClients.createDefault();
-		HttpGet httpget = new HttpGet("https://faber-api.educa.ch/connections");
+		HttpGet httpget = new HttpGet(new PropertiesUtil().getScheme() + "://" +new PropertiesUtil().getFaberAgentURL()+ "/connections");
 		HttpResponse httpresponse = httpclient.execute(httpget);
 		Scanner sc = new Scanner(httpresponse.getEntity().getContent());
 
@@ -246,7 +247,7 @@ public class IssueCredential extends HttpServlet{
 	
 	private List<Schema> getSchemas() throws ClientProtocolException, IOException, URISyntaxException, ParseException{
 		CloseableHttpClient httpclient = HttpClients.createDefault();
-		HttpGet httpget = new HttpGet("https://faber-api.educa.ch/schemas/created");
+		HttpGet httpget = new HttpGet(new PropertiesUtil().getScheme() +"://" + new PropertiesUtil().getFaberAgentURL()+ "/schemas/created");
 		HttpResponse httpresponse = httpclient.execute(httpget);
 		Scanner sc = new Scanner(httpresponse.getEntity().getContent());
 
@@ -282,7 +283,7 @@ public class IssueCredential extends HttpServlet{
 
 		CloseableHttpClient httpclient = HttpClients.createDefault();
 
-		URIBuilder builder = new URIBuilder().setScheme("https").setHost("faber-api.educa.ch")
+		URIBuilder builder = new URIBuilder().setScheme(new PropertiesUtil().getScheme()).setHost(new PropertiesUtil().getFaberAgentURL())
 				.setPath("/schemas/" + schemaId);
 
 		System.out.println(builder.toString());

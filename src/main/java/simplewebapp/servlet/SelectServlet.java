@@ -26,6 +26,7 @@ import org.json.simple.parser.ParseException;
 
 import simplewebapp.beans.Schema;
 import simplewebapp.beans.Selection;
+import simplewebapp.properties.PropertiesUtil;
 import simplewebapp.beans.Attribute;
 
 @WebServlet(urlPatterns = { "/select" })
@@ -96,7 +97,7 @@ public class SelectServlet extends HttpServlet {
 		
 		CloseableHttpClient httpclient = HttpClients.createDefault();
 
-		URIBuilder builder = new URIBuilder().setScheme("https").setHost("faber-api.educa.ch").setPath("/schemas/" + schemaId);
+		URIBuilder builder = new URIBuilder().setScheme(new PropertiesUtil().getScheme()).setHost(new PropertiesUtil().getFaberAgentURL()).setPath("/schemas/" + schemaId);
 
 
 		System.out.println(builder.toString());

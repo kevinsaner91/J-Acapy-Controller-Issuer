@@ -27,6 +27,7 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 import simplewebapp.beans.Creddef;
+import simplewebapp.properties.PropertiesUtil;
 
 @WebServlet(urlPatterns = { "/creddef" })
 public class CreddefServlet extends HttpServlet{
@@ -41,7 +42,7 @@ public class CreddefServlet extends HttpServlet{
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		CloseableHttpClient httpclient = HttpClients.createDefault();
-		HttpGet httpget = new HttpGet("https://faber-api.educa.ch/credential-definitions/created");
+		HttpGet httpget = new HttpGet(new PropertiesUtil().getScheme() +"://" +  new PropertiesUtil().getFaberAgentURL()+ "/credential-definitions/created");
 		HttpResponse httpresponse = httpclient.execute(httpget);
 		Scanner sc = new Scanner(httpresponse.getEntity().getContent());
 
@@ -116,7 +117,7 @@ public class CreddefServlet extends HttpServlet{
 			
 			CloseableHttpClient httpclient = HttpClients.createDefault();
 
-			HttpPost httpPost = new HttpPost("https://faber-api.educa.ch/credential-definitions");
+			HttpPost httpPost = new HttpPost(new PropertiesUtil().getScheme() + "://" + new PropertiesUtil().getFaberAgentURL()+ "/credential-definitions");
 
 			httpPost.setHeader("Accept", "application/json");
 			httpPost.setHeader("Content-type", "application/json");
@@ -138,7 +139,7 @@ public class CreddefServlet extends HttpServlet{
 		
 		CloseableHttpClient httpclient = HttpClients.createDefault();
 
-		URIBuilder builder = new URIBuilder().setScheme("https").setHost("faber-api.educa.ch").setPath("/credential-definitions/" + creddefId);
+		URIBuilder builder = new URIBuilder().setScheme(new PropertiesUtil().getScheme()).setHost(new PropertiesUtil().getFaberAgentURL()).setPath("/credential-definitions/" + creddefId);
 
 
 		System.out.println(builder.toString());

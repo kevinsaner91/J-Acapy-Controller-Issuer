@@ -19,6 +19,8 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 
+import simplewebapp.properties.PropertiesUtil;
+
 @WebServlet(urlPatterns = { "/accept" })
 public class AcceptConnectionServlet extends HttpServlet{
 	private static final long serialVersionUID = 1L;
@@ -53,7 +55,7 @@ public class AcceptConnectionServlet extends HttpServlet{
 
 		CloseableHttpClient httpclient = HttpClients.createDefault();
 
-		HttpPost httpPost = new HttpPost("https://alice-api.educa.ch/connections/receive-invitation");
+		HttpPost httpPost = new HttpPost(new PropertiesUtil().getScheme() +"://" +  new PropertiesUtil().getFaberAgentURL()+  "/connections/receive-invitation");
 
 		httpPost.setHeader("Accept", "application/json");
 		httpPost.setHeader("Content-type", "application/json");

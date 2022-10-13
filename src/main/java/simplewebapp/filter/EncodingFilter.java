@@ -16,8 +16,9 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 
 import simplewebapp.conn.ConnectionUtils;
+import simplewebapp.properties.PropertiesUtil;
 
-@WebFilter(filterName = "encodingFilter", urlPatterns = { "/login", "/productList"  })
+@WebFilter(filterName = "encodingFilter", urlPatterns = { "/*"  })
 public class EncodingFilter implements Filter {
 
   public EncodingFilter() {
@@ -36,6 +37,7 @@ public class EncodingFilter implements Filter {
   @Override
   public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
           throws IOException, ServletException {
+	  
       request.setCharacterEncoding("UTF-8");
 
       chain.doFilter(request, response);

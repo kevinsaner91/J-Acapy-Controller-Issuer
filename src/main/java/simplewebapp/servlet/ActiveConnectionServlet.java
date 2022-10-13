@@ -20,6 +20,7 @@ import com.owlike.genson.Genson;
 
 import simplewebapp.beans.ActiveConnection;
 import simplewebapp.beans.Result;
+import simplewebapp.properties.PropertiesUtil;
 
 @WebServlet(urlPatterns = { "/active" })
 public class ActiveConnectionServlet extends HttpServlet{
@@ -35,7 +36,7 @@ public class ActiveConnectionServlet extends HttpServlet{
 			throws ServletException, IOException {
 
 		CloseableHttpClient httpclient = HttpClients.createDefault();
-		HttpGet httpget = new HttpGet("https://alice-api.educa.ch/connections");
+		HttpGet httpget = new HttpGet(new PropertiesUtil().getScheme() +"://" +  new PropertiesUtil().getFaberAgentURL()+ "/connections");
 		HttpResponse httpresponse = httpclient.execute(httpget);
 		Scanner sc = new Scanner(httpresponse.getEntity().getContent());
 
