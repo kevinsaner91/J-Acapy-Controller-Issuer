@@ -121,7 +121,7 @@ public class SchemaServlet extends HttpServlet {
 			
 			CloseableHttpClient httpclient = HttpClients.createDefault();
 
-			HttpPost httpPost = new HttpPost(new PropertiesUtil().getScheme() + "://" +new PropertiesUtil().getScheme() + new PropertiesUtil().getFaberAgentURL()+ "/schemas");
+			HttpPost httpPost = new HttpPost(new PropertiesUtil().getScheme() + "://" + new PropertiesUtil().getFaberAgentURL()+ "/schemas");
 
 			httpPost.setHeader("Accept", "application/json");
 			httpPost.setHeader("Content-type", "application/json");
